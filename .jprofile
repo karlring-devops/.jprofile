@@ -7,7 +7,7 @@
 JENKINS_HOME_LOCAL_PROFILE=~/.jprofile
 JENKINS_HOME_LOCAL_USER=~/.jenkins
 
-   jflist(){ grep '(){'  $(JENKINS_HOME_LOCAL)/.jprofile | sed -e 's/(){/^/g' | cut -d'^' -f1 | sed -e 's/ //g' | sort -u ; }
+   jflist(){ grep '(){'  ${JENKINS_HOME_LOCAL_PROFILE}/.jprofile | sed -e 's/(){/^/g' | cut -d'^' -f1 | sed -e 's/ //g' | sort -u ; }
 
 jenv(){
 
@@ -22,12 +22,13 @@ jenv(){
     wget ${JENKINS_URL}/jnlpJars/jenkins-cli.jar
 }
 
-    jhelp(){ java -jar jenkins-cli.jar -s ${JENKINS_URL} -auth ${JENKINS_AUTH} help ; }
- jplugins(){ java -jar jenkins-cli.jar -s ${JENKINS_URL} -auth ${JENKINS_AUTH} list-plugins ; }
+    jhelp(){ cd ${JENKINS_HOME_LOCAL_USER} ; java -jar jenkins-cli.jar -s ${JENKINS_URL} -auth ${JENKINS_AUTH} help ; }
+ jplugins(){ cd ${JENKINS_HOME_LOCAL_USER} ; java -jar jenkins-cli.jar -s ${JENKINS_URL} -auth ${JENKINS_AUTH} list-plugins ; }
 
 jinstall(){
             # JENKINS_PLUGIN='https://updates.jenkins-ci.org/download/plugins/gitbucket/0.8/gitbucket.hpi'
             JENKINS_PLUGIN="${1}"
+            cd ${JENKINS_HOME_LOCAL_USER}
             java -jar jenkins-cli.jar -s ${JENKINS_URL} -auth ${JENKINS_AUTH} install-plugin ${JENKINS_PLUGIN}
           }
 
@@ -36,7 +37,11 @@ jinstall(){
 #/*******************************************************/
 
 kcr8jenkins(){
-  cd ~/.kube/jenkins
+  
+  cd ${JENKINS_HOME_LOCAL_USER}
+  git clone https://github.com/karlring-devops/jenkins-kubernetes-pod.git
+  . ./setup_jenkins_kubernetes.sh
+  
   kubectl create -f jenkins-namespace.yaml
   kubectl apply -f jenkins-role.yml
   kubectl apply -f jenkins-role-bind.yml
