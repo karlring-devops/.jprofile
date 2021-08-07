@@ -4,16 +4,22 @@
 #/***** Jenkins            functions              *******/
 #/*******************************************************/
 
+JENKINS_HOME_LOCAL_PROFILE=~/.jprofile
+JENKINS_HOME_LOCAL_USER=~/.jenkins
+
+   jflist(){ grep '(){'  $(JENKINS_HOME_LOCAL)/.jprofile | sed -e 's/(){/^/g' | cut -d'^' -f1 | sed -e 's/ //g' | sort -u ; }
+
 jenv(){
 
-    JENKINS_URL='http://192.168.7.2:30000'
-   JENKINS_USER=${1}
-  JENKINS_TOKEN=${2}
+    JENKINS_URL="${1}"  #/--- EG. 'http://192.168.7.2:30000'
+   JENKINS_USER=${2}
+  JENKINS_TOKEN=${3}
    JENKINS_AUTH="${JENKINS_USER}:${JENKINS_TOKEN}"
 
-    cd ~/.kube/
+    [ ! -d ${JENKINS_HOME_LOCAL_USER} ] && mkdir -p ${JENKINS_HOME_LOCAL_USER}
+    cd ${JENKINS_HOME_LOCAL_USER}
     rm -f jenkins-cli.jar
-    wget http://192.168.7.2:30000/jnlpJars/jenkins-cli.jar
+    wget ${JENKINS_URL}/jnlpJars/jenkins-cli.jar
 }
 
     jhelp(){ java -jar jenkins-cli.jar -s ${JENKINS_URL} -auth ${JENKINS_AUTH} help ; }
