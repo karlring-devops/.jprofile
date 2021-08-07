@@ -101,8 +101,8 @@ kjbackup(){
          K8S_POD_NAME=$(kubectl get pods -n ${K8S_NAME_SPACE} | grep ${K8S_NAME_SPACE} | awk '{print $1}')
    JENKINS_REMOTE_DIR=/tmp/data/backup/jenkins
 
-    kubectl cp ${K8S_NAME_SPACE}/${K8S_POD_NAME}:${JENKINS_REMOTE_DIR}/${JENKINS_BACKUP_FILE} ${LOCAL_ARCHIVE_DIR}/${JENKINS_BACKUP_FILE}
-    echo && pwd && echo && ls -alhtr ${LOCAL_ARCHIVE_DIR}
+    echo kubectl cp ${K8S_NAME_SPACE}/${K8S_POD_NAME}:${JENKINS_REMOTE_DIR}/${JENKINS_BACKUP_FILE} ${LOCAL_ARCHIVE_DIR}/${JENKINS_BACKUP_FILE}
+    # echo && pwd && echo && ls -alhtr ${LOCAL_ARCHIVE_DIR}
 }
 
 kjrestore(){
