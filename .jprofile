@@ -87,6 +87,12 @@ kgetsecJenkins(){
   kubectl cluster-info
 }
 
+kbackuplist(){
+  LOCAL_ARCHIVE_DIR=~/uga/data/backup/jenkins
+  ls -alhtr ${LOCAL_ARCHIVE_DIR}/backup_* 
+}
+
+
 kjbackup(){
   
     LOCAL_ARCHIVE_DIR=~/uga/data/backup/jenkins
