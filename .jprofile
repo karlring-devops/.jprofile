@@ -6,6 +6,7 @@
 
 JENKINS_HOME_LOCAL_PROFILE=~/.jprofile
 JENKINS_HOME_LOCAL_USER=~/.jenkins
+[ ! -d ${JENKINS_HOME_LOCAL_USER} ] && mkdir -p ${JENKINS_HOME_LOCAL_USER}
 
    jflist(){ grep '(){'  ${JENKINS_HOME_LOCAL_PROFILE}/.jprofile | sed -e 's/(){/^/g' | cut -d'^' -f1 | sed -e 's/ //g' | sort -u ; }
 
