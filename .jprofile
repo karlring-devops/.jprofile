@@ -40,6 +40,8 @@ kcr8jenkins(){
   
   cd ${JENKINS_HOME_LOCAL_USER}
   git clone https://github.com/karlring-devops/jenkins-kubernetes-pod.git
+  
+  cd ${JENKINS_HOME_LOCAL_USER}/jenkins-kubernetes-pod/
   . ./setup_jenkins_kubernetes.sh
   
   kubectl create -f jenkins-namespace.yaml
