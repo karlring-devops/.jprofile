@@ -40,6 +40,7 @@ jinstall(){
 kcr8jenkins(){
   
   cd ${JENKINS_HOME_LOCAL_USER}
+  rm -rf jenkins-kubernetes-pod
   git clone https://github.com/karlring-devops/jenkins-kubernetes-pod.git
   
   cd ${JENKINS_HOME_LOCAL_USER}/jenkins-kubernetes-pod/
