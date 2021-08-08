@@ -93,6 +93,10 @@ kbackuplist(){
 }
 
 
+kjgetplugin(){
+    wget https://updates.jenkins.io/download/plugins/backup/1.6.1/backup.hpi
+}
+
 kjbackup(){
   
     LOCAL_ARCHIVE_DIR=~/uga/data/backup/jenkins
