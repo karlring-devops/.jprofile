@@ -47,8 +47,8 @@ kcr8jenkins(){
   #/---- REMOVED FILES in GIT NOW ------//# . ./setup_jenkins_kubernetes.sh
   
   kubectl create -f jenkins-namespace.yaml
-  kubectl apply -f jenkins-role.yml
-  kubectl apply -f jenkins-role-bind.yml
+  kubectl apply -f jenkins-role.yaml
+  kubectl apply -f jenkins-role-bind.yaml
   kubectl create serviceaccount jenkins-admin-sa -n jenkins
   kubectl create clusterrolebinding jenkins-admin-sa --clusterrole=cluster-admin --serviceaccount=jenkins:jenkins-admin-sa -n jenkins
 
