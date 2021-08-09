@@ -4,7 +4,7 @@
 #/***** Jenkins            functions              *******/
 #/*******************************************************/
 
-JENKINS_HOME_LOCAL_PROFILE=~/.jprofile
+JENKINS_HOME_LOCAL_PROFILE=~/.jprofile/.jprofile
 JENKINS_HOME_LOCAL_USER=~/.jenkins
 [ ! -d ${JENKINS_HOME_LOCAL_USER} ] && mkdir -p ${JENKINS_HOME_LOCAL_USER}
 
