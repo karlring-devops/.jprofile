@@ -124,3 +124,7 @@ kjrestore(){
     kubectl exec -it --namespace=${K8S_NAME_SPACE} ${K8S_POD_NAME} -- bash -c "ls -alhtr ${JENKINS_REMOTE_DIR}"  
 }
 
+
+
+
+
