@@ -126,5 +126,32 @@ kjrestore(){
 
 
 
+kjgetBackups(){
 
+  REMOTE_ARCHIVE_DIR=/home/vagrant/uga/data/backup/jenkins
+  LOCAL_ARCHIVE_DIR=/Volumes/uga/data/backup/jenkins
+  IP_REMOTE=192.168.7.2
+  SSH_USER=vagrant
+
+cat <<EOF
+#/***********************************/
+#/*** Download: Jenkins Backups
+#/***********************************/
+PWD=${LOCAL_ARCHIVE_DIR}
+
+EOF
+
+  BACKUP_FILES=$(ssh ${SSH_USER}@${IP_REMOTE} "ls -1 /home/vagrant/uga/data/backup/jenkins|egrep 'zip|gz'")
+  [ ! -d ${LOCAL_ARCHIVE_DIR} ] && mkdir -p ${LOCAL_ARCHIVE_DIR}
+  [ -d ${LOCAL_ARCHIVE_DIR} ] && cd ${LOCAL_ARCHIVE_DIR}
+
+  for b in ${BACKUP_FILES}
+   do
+        ls -alh ${REMOTE_ARCHIVE_DIR}/${b}
+        scp -rp ${SSH_USER}@${IP_REMOTE}:${REMOTE_ARCHIVE_DIR}/${b} .
+   done
+  
+  ls -alhtr ${LOCAL_ARCHIVE_DIR}
+
+} 
 
