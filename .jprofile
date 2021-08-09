@@ -44,7 +44,7 @@ kcr8jenkins(){
   git clone https://github.com/karlring-devops/jenkins-kubernetes-pod.git
   
   cd ${JENKINS_HOME_LOCAL_USER}/jenkins-kubernetes-pod/
-  . ./setup_jenkins_kubernetes.sh
+  #/---- REMOVED FILES in GIT NOW ------//# . ./setup_jenkins_kubernetes.sh
   
   kubectl create -f jenkins-namespace.yaml
   kubectl apply -f jenkins-role.yml
