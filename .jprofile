@@ -116,7 +116,15 @@ kjbackup(){
 
     [ ! -d ${LOCAL_ARCHIVE_DIR} ] && mkdir -p ${LOCAL_ARCHIVE_DIR}
     kubectl cp ${K8S_NAME_SPACE}/${K8S_POD_NAME}:${JENKINS_REMOTE_DIR}/${JENKINS_BACKUP_FILE} ${LOCAL_ARCHIVE_DIR}/${JENKINS_BACKUP_FILE}
-    echo && pwd && echo && ls -alhtr ${LOCAL_ARCHIVE_DIR}
+    echo 
+    cat <<EOF
+      #/***********************************/
+      #/*** Download: Jenkins Backups
+      #/***********************************/
+      HOST : $(hostname)
+      PWD  : ${LOCAL_ARCHIVE_DIR}
+EOF
+    echo && ls -alhtr ${LOCAL_ARCHIVE_DIR}/*.zip
 }
 
 kjrestore(){
