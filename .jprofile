@@ -25,6 +25,7 @@ jenv(){
 
     jhelp(){ cd ${JENKINS_HOME_LOCAL_USER} ; java -jar jenkins-cli.jar -s ${JENKINS_URL} -auth ${JENKINS_AUTH} help ; }
  jplugins(){ cd ${JENKINS_HOME_LOCAL_USER} ; java -jar jenkins-cli.jar -s ${JENKINS_URL} -auth ${JENKINS_AUTH} list-plugins ; }
+    kbash(){ K8S_SERVICE_NAME=$( kubectl get pods -n ${1} | grep ${2} | head -1 | awk '{print $1}') ; kubectl exec -it --stdin --tty ${K8S_SERVICE_NAME} -n ${1} -- /bin/bash ;}
 
 jinstall(){
             # JENKINS_PLUGIN='https://updates.jenkins-ci.org/download/plugins/gitbucket/0.8/gitbucket.hpi'
