@@ -135,11 +135,21 @@ kjrestore(){
          K8S_POD_NAME=$(kubectl get pods -n ${K8S_NAME_SPACE} | grep ${K8S_NAME_SPACE} | awk '{print $1}')
    JENKINS_REMOTE_DIR=/tmp/data/backup/jenkins
 
+ cat <<EOF
+#/***********************************/
+#/*** Upload: Jenkins Backups
+#/***********************************/
+PWD                 :   ${LOCAL_ARCHIVE_DIR}
+JENKINS_BACKUP_FILE :   ${JENKINS_BACKUP_FILE}
+JENKINS_REMOTE_DIR  :   ${JENKINS_REMOTE_DIR}
+
+EOF
+    kubectl exec -it --namespace=${K8S_NAME_SPACE} ${K8S_POD_NAME} -- bash -c "mkdir -p ${JENKINS_REMOTE_DIR}"
     kubectl cp ${LOCAL_ARCHIVE_DIR}/${JENKINS_BACKUP_FILE} ${K8S_NAME_SPACE}/${K8S_POD_NAME}:${JENKINS_REMOTE_DIR}/${JENKINS_BACKUP_FILE}
     echo && pwd && echo 
     kubectl exec -it --namespace=${K8S_NAME_SPACE} ${K8S_POD_NAME} -- bash -c "ls -alhtr ${JENKINS_REMOTE_DIR}"  
+    kbash ${K8S_NAME_SPACE} ${K8S_POD_NAME}
 }
-
 
 
 kjgetBackups(){
