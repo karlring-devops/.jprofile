@@ -42,6 +42,11 @@ jinstall(){
    # echo '185.199.111.133 raw.githubusercontent.com' >> /etc/hosts
 #}
 
+dbash(){
+    K8S_NAME_SPACE=${1}
+    ContainerID=`docker container ls | grep ${K8S_NAME_SPACE} | grep -v pause|awk '{print $1}'`
+    docker exec -it -u root ${ContainerID} /bin/bash
+}
 #/*******************************************************/
 #/***** Jenkins/kubernetes functions              *******/
 #/*******************************************************/
